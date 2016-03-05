@@ -8,3 +8,5 @@ class BattleAdmin(admin.ModelAdmin):
     exclude = ('hashtag1_score', 'hashtag2_score', 'score', 'winner', 'updated_time', 'ended')
 
 admin.site.register(Battle, BattleAdmin)
+admin.site.register(Word)
+admin.site.register(WordUsage)

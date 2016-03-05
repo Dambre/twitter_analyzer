@@ -4,7 +4,8 @@ from hashbattle.local_settings import *
 import tweepy
 import pytz
 from datetime import datetime
-
+from .models import WordUsage, Word
+from .get_dictionary import exclude_by_type
 
 def auth():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -36,7 +37,42 @@ def count_hash(hashtags, start_time, end_time, updated_time, count=100, result_t
             tweet_created = pytz.utc.localize(tweet.created_at) #make a naive datetime timezone-aware
             if (tweet_created>=start_time) and (tweet_created<=end_time):
                 number+=1
-        hash_count[hashtag] = number
-    updated_time = pytz.utc.localize(datetime.now())
+        hash_count[hashtag] = number   
+    updated_time = pytz.utc.localize(datetime.now()) 
     return hash_count, updated_time
  
+def get_word_statistics(search_word):
+    '''
+    get tweets with this word
+    '''
+    try:
+        word = Word.objects.get(word=search_word)
+        last_tweet_id = int(word.last_tweet_id)
+        tweets = api.search(
+            q=word.word,
+            count=100,
+            result_type='recent',
+            since_id=last_tweet_id)
+    except Exception:
+        tweets = []
+
+    for tweet in tweets:
+        print(tweet.text)
+        if last_tweet_id < tweet.id:
+            last_tweet_id = tweet.id
+        words = exclude_by_type(tweet.text)
+        for tweet_word in words:
+            try:
+                word = Word.objects.get(word=tweet_word.lower())
+            except Word.DoesNotExist:
+                word = Word.objects.create(word=tweet_word, last_tweet_id=tweet.id)
+            WordUsage.objects.create(
+                word=word,
+                retweets=tweet.retweet_count,
+                likes=tweet.favorite_count,
+                timestamp=pytz.utc.localize(tweet.created_at))
+
+    word = Word.objects.get(word=search_word)
+    word.update_latest_id(last_tweet_id)
+
+

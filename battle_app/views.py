@@ -9,7 +9,7 @@ from .serializers import BattleSerializer
 
 
 def all_battles(request):
-    management.call_command('update_hash')
+    # management.call_command('update_hash')
     return render(request, 'battle_app/index.html', {'battles': Battle.objects.all().order_by('-end_time')})
     
 
