@@ -9,8 +9,8 @@ from .models import WordUsage, Word
 from .get_dictionary import exclude_by_type
 
 def auth():
-    auth = tweepy.OAuthHandler(settings.consumer_key, settings.consumer_secret)
-    auth.set_access_token(settings.access_token, settings.access_token_secret)
+    auth = tweepy.OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
+    auth.set_access_token(settings.ACCESS_TOKEN, settings.ACCESS_TOKEN_SECRET)
     return auth
 
 api = tweepy.API(auth())
