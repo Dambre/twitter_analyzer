@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from hashbattle.local_settings import *
+from django.conf import settings
 
 import tweepy
 import pytz
@@ -9,8 +9,8 @@ from .models import WordUsage, Word
 from .get_dictionary import exclude_by_type
 
 def auth():
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(settings.consumer_key, settings.consumer_secret)
+    auth.set_access_token(settings.access_token, settings.access_token_secret)
     return auth
 
 api = tweepy.API(auth())
