@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 from hashbattle.local_settings import *
 
@@ -22,7 +23,6 @@ def count_hash(hashtags, start_time, end_time, updated_time, count=100, result_t
     count (optional)
     The number of tweets to return per page, up to a maximum of 100. 
     Defaults to 15. This was formerly the “rpp” parameter in the old Search API.
-
     '''
     #this check will help avoid 100 max search results 
     if updated_time:    
