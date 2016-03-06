@@ -10,3 +10,4 @@ class BattleAdmin(admin.ModelAdmin):
 admin.site.register(Battle, BattleAdmin)
 admin.site.register(Word)
 admin.site.register(WordUsage)
+admin.site.register(Synonym)

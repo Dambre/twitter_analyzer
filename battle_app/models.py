@@ -36,7 +36,8 @@ class Word(models.Model):
         self.save()
 
 class Synonym(models.Model):
-    synonym_to = models.ForeignKey(Word, related_name='synonyms')
+    synonym_to = models.ManyToManyField(Word, related_name='synonym_to_word')
+    word = models.ForeignKey(Word, null=True)
 
 class WordUsage(models.Model):
     word = models.ForeignKey(Word)
