@@ -2,6 +2,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets, generics
 from django.core import management
+from django.views.decorators.csrf import csrf_exempt 
+
+from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import *
 from .twitter import count_hash
@@ -44,3 +47,8 @@ class BattleGet(generics.ListCreateAPIView):
             b.save()
             queryset = self.queryset.filter(id=str(id))
         return queryset
+
+@csrf_exempt
+def get_user_input(request):
+    user_input = request.POST.get("user_input_get", "")
+    return HttpResponse('response')
