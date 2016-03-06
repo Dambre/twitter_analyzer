@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, generics
 from django.core import management
+from django.views.decorators.csrf import csrf_exempt 
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -47,7 +48,7 @@ class BattleGet(generics.ListCreateAPIView):
             queryset = self.queryset.filter(id=str(id))
         return queryset
 
+@csrf_exempt
 def get_user_input(request):
-    user_input = request.POST.get('user_input', '')
-    import pdb; pdb.set_trace()
-    return HttpResponse(user_input)
+    user_input = request.POST.get("user_input_get", "")
+    return HttpResponse('response')

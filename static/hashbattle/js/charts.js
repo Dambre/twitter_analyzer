@@ -41,11 +41,10 @@ window.onload = function() {
 
 
     $("#analyze-post").click(function(){
-        var user_input = $("textarea#field").val();
-        console.log(user_input);
+        var user_input_get = $("textarea#field").val();
         $.ajax({
-            data: {"user_input": user_input},
-            type: $(this).attr('method'),
+            data: user_input_get,
+            type: 'POST',
             url: 'get_input/',
             success: function(response){
                 console.log(response);
@@ -55,9 +54,9 @@ window.onload = function() {
    });
 
   $("#analyze-post").click(function(){
-    $('#field').each(function(){
+    /*$('#field').each(function(){
       $(this).attr('readonly','readonly');
-    });
+    });*/
     $("#chart-area").slideDown(function(){
       setTimeout(
         function() {
