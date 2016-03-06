@@ -74,7 +74,10 @@ def analyze_post(text):
     text = list(set(text))
     final_text = []
     for word in text:
-        word = Word.objects.get(word=word)
+        try:
+            word = Word.objects.get(word=word)
+        except:
+            continue
         word_stats = get_stats(word.word)
         final_word = word_stats
         synonims = Synonym.objects.filter(synonym_to=word)

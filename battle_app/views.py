@@ -9,6 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 from .twitter import count_hash
 from .serializers import BattleSerializer
+from .get_dictionary import analyze_post 
 
 
 def all_battles(request):
@@ -51,4 +52,5 @@ class BattleGet(generics.ListCreateAPIView):
 @csrf_exempt
 def get_user_input(request):
     user_input = request.POST.get("user_input_get", "")
-    return HttpResponse('response')
+    response = analyze_post(user_input)
+    return HttpResponse(response)
