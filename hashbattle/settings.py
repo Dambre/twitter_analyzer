@@ -143,14 +143,18 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
 
-# twitter keys
-if not DEBUG:
-    CONSUMER_KEY = os.environ['CONSUMER_KEY']
-    CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-    ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
-    ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
 # Import development settings such as config, secrets etc.
 try:
     from .local_settings import *
 except Exception:
+    pass
+
+# twitter keys
+
+try:
+    CONSUMER_KEY = os.environ['CONSUMER_KEY']
+    CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+    ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+    ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
+except KeyError:
     pass
