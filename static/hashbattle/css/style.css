@@ -91,3 +91,20 @@ textarea:focus {
 }
 
 canvas#race{position:relative; z-index:5;}
+
+.graphics-columns {
+    float: left;
+    width: 32%;
+}
+
+.graphics-columns.c{
+    margin-left:2%;
+    margin-right: 2%;
+}
+
+.chart-heading-wrapper {
+    font-weight: 300;
+    font-size: x-large;
+    text-align: center;
+    height:40px;
+}

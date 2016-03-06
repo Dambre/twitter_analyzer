@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['social-advisor.herokuapp.com',]
 
@@ -144,11 +144,14 @@ CELERY_TIMEZONE = 'UTC'
 
 
 # twitter keys
-if not DEBUG:
+try:
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
     CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
     ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
     ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
+except Exception:
+    pass
+
 # Import development settings such as config, secrets etc.
 try:
     from .local_settings import *

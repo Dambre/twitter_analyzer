@@ -69,11 +69,41 @@
       </div>
     </nav>
 
-    <section class="container" style="display:none;" id="chart">
-      <div class="card card-styling">
+    <section class="container row" style="display:none;" id="chart-area">
+      
+      <div class="card card-styling graphics-columns">
         <div class="network-chart-wrapper">
+          <div class="sugested-words-wrapper">
+            <!--<div class="chart-heading-wrapper">
+              Suggested words
+            </div>-->
+            <a href="#1"></a>1. Top<br>
+            <a href="#2"></a>2. Bottom<br>
+            <a href="#3"></a>3. Left<br>
+            <a href="#4"></a>4. Right<br>
+            <a href="#5"></a>5. Center<br>
+          </div>
+        </div>  
+      </div>
+
+      <div class="card card-styling graphics-columns c">
+        <div class="network-chart-wrapper">
+          <!--<div class="chart-heading-wrapper">
+            Popularity comparison
+          </div>-->
           <div style="height:inherit; width:inherit;">
-            <canvas id="chartName"></canvas>
+            <canvas id="bar-chart"></canvas>
+          </div>
+        </div>  
+      </div>
+
+      <div class="card card-styling graphics-columns">
+        <div class="network-chart-wrapper">
+        <!--<div class="chart-heading-wrapper">
+          Popularity dynamics
+        </div>-->
+          <div style="height:inherit; width:inherit;">
+            <canvas id="line-chart"></canvas>
           </div>
         </div>  
       </div>
@@ -84,44 +114,37 @@
         <textarea placeholder="Enter your text here to analyze it with our tool..." class="text-field" id="field" onkeyup="countChar(this)"></textarea>
         <div class="text-field-char-counter right" id="char-count">140</div>
       </div>
-      <a class="waves-effect waves-light orange btn right" id="analyze-post">Analyze</a>
+      <a href="get_input/" class="waves-effect waves-light orange btn right" id="analyze-post">Analyze</a>
     </section>
-  
+
   </section>
 
-    
+  <!--  Scripts-->
 
-    <!--  Scripts-->
+  <!-- jQuery Library -->
+  <script src="{% static 'hashbattle/js/jquery-2.1.1.min.js' %}"></script>
+  <!-- Materialize.js -->
+  <script src="{% static 'hashbattle/js/materialize.js' %}"></script>
+  <!-- Materialize.js Initialization -->
+  <script src="{% static 'hashbattle/js/init.js' %}"></script>
+  <!-- ChartsX.js -->
+  <script src="{% static 'hashbattle/js/chartX.js' %}"></script>
+  <!-- Bar.js -->
+  <script src="{% static 'hashbattle/js/Chart.Bar.js' %}"></script>
+  <!-- Charts Initialization -->
+  <script src="{% static 'hashbattle/js/charts.js' %}"></script>
+  <!-- Preloader Initialization -->
+  <script src="{% static 'hashbattle/js/preloader.js' %}" type="text/javascript"></script>
+  <script>
+    function countChar(val) {
+      var len = val.value.length;
 
-    <!-- jQuery Library -->
-    <script src="{% static 'hashbattle/js/jquery-2.1.1.min.js' %}"></script>
-    <!-- Materialize.js -->
-    <script src="{% static 'hashbattle/js/materialize.js' %}"></script>
-    <!-- Materialize.js Initialization -->
-    <script src="{% static 'hashbattle/js/init.js' %}"></script>
-    <!-- Charts.js -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <!-- Charts Initialization -->
-    <script src="{% static 'hashbattle/js/charts.js' %}"></script>
-    <!-- Preloader Initialization -->
-    <script src="{% static 'hashbattle/js/preloader.js' %}" type="text/javascript"></script>
-    <script>
-      function countChar(val) {
-        var len = val.value.length;
-
-        if (len > 140) {
-          val.value = val.value.substring(0, 140);
-        } else {
-          $('#char-count').text(140 - len);
-        }
-      };
-    </script>
+      if (len > 140) {
+        val.value = val.value.substring(0, 140);
+      } else {
+        $('#char-count').text(140 - len);
+      }
+    };
+  </script>
   </body>
 </html>
-  
-
-<!--{% for battle in battles %}
-{{ battle }}
-{{ battle.score }}
-  {% endfor %} -->
-
