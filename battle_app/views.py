@@ -44,4 +44,3 @@ class BattleGet(generics.ListCreateAPIView):
             b.save()
             queryset = self.queryset.filter(id=str(id))
         return queryset
-        

@@ -19,6 +19,9 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/get-battle/(?P<id>[a-zA-Z0-9_.-]+)/$', views.BattleGet.as_view(), name='battle-get'),
 ]
+<<<<<<< HEAD
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns()
+=======
+>>>>>>> 83953590da374c405df77fbb8c11cd8e382beb6a

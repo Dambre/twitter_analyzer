@@ -10,7 +10,15 @@ https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+<<<<<<< HEAD
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hashbattle.settings")
 
 application = get_wsgi_application()
+=======
+from dj_static import Cling
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hashbattle.settings")
+
+application = Cling(get_wsgi_application())
+>>>>>>> 83953590da374c405df77fbb8c11cd8e382beb6a
