@@ -9,6 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 from .twitter import count_hash
 from .serializers import BattleSerializer
+from .get_dictionary import analyze_post 
 
 import json
 

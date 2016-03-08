@@ -2,7 +2,7 @@
 import nltk
 import requests
 
-from .models import Word, Synonym
+from .models import Word, Synonym, WordUsage
 
 default_types = ['$', "''", '(', ')', ',',
     '--', '.', ':', 'CC', 'CD', 'DT', 'EX',
@@ -67,3 +67,48 @@ def create_synonyms(orig_word):
             return good_syns
     except Exception as e:
         print(e)
+
+
+def analyze_post(text):
+    text = text.split()
+    text = list(set(text))
+    final_text = []
+    for word in text:
+        try:
+            word = Word.objects.get(word=word)
+        except:
+            continue
+        word_stats = get_stats(word.word)
+        final_word = word_stats
+        synonims = Synonym.objects.filter(synonym_to=word)
+        for syn in synonims:
+            stats = get_stats(syn)
+            if word_stats['success_rate'] < stats['success_rate']:
+                stats['succes_rate'] = stats['success_rate'] / word_stats['success_rate']
+                final_word = stats
+        final_text.append(final_word)
+    return final_text
+
+
+
+
+def get_stats(word):
+    stats = {}
+    try:
+        word_obj = Word.objects.get(word=word)
+        usage = WordUsage.objects.filter(word=word_obj)
+        count = usage.count()
+        retweets = 0
+        likes = 0
+        for use in usage:
+            retweets += use.retweets
+            likes += use.likes
+        likes_success = likes/count
+        retweets_success = retweets/count
+        rate = (likes_success + retweets_success)/2
+        return {
+            'word': word,
+            'success_rate': rate}
+    except Exception:
+        return {'word': '',
+            'success_rate': 0}
