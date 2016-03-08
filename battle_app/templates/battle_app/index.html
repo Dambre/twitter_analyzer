@@ -39,7 +39,7 @@
       </div>
   </div>
 
-  <section class="hide " id="site-content">
+  <section class="hide" id="site-content">
 
     <ul id="profile-dropdown" class="dropdown-content">
       <li><a class="dropdown-item" href="#!">F.A.Q</a></li>
@@ -110,13 +110,18 @@
     </section>
 
     <section class="container" id="analyzer-card-wrapper">
-      <div class="card card-styling social-media-post-analyze-wrapper">
-        <textarea placeholder="Enter your text here to analyze it with our tool..." class="text-field" id="field" onkeyup="countChar(this)"></textarea>
-        <div class="text-field-char-counter right" id="char-count">140</div>
-      </div>
-      <a href="get_input/" class="waves-effect waves-light orange btn right" id="analyze-post">Analyze</a>
-    </section>
+      <form method="POST" id="review-post" action="/get_input/"> 
+        {% csrf_token %}
+        <div class="card card-styling social-media-post-analyze-wrapper">
+          <textarea placeholder="Enter your text here to analyze it with our tool..." class="text-field" id="user_input_to_analyze" type="text" onkeyup="countChar(this)"></textarea>
+          <div class="text-field-char-counter right" id="char-count">140</div>
+        </div>
 
+
+        <input id="submit_to_review" value="Review" type="submit" class="orange btn right"></input>
+      </form>
+
+    </section>
   </section>
 
   <!--  Scripts-->

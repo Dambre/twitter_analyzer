@@ -10,6 +10,8 @@ from .models import *
 from .twitter import count_hash
 from .serializers import BattleSerializer
 
+import json
+
 
 def all_battles(request):
     # management.call_command('update_hash')
@@ -50,5 +52,5 @@ class BattleGet(generics.ListCreateAPIView):
 
 @csrf_exempt
 def get_user_input(request):
-    user_input = request.POST.get("user_input_get", "")
-    return HttpResponse('response')
+    user_input = request.POST.get("user_input", "")
+    return HttpResponse(user_input)

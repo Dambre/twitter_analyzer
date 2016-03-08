@@ -40,20 +40,7 @@ var barChartData = {
 window.onload = function() {
 
 
-    $("#analyze-post").click(function(){
-        var user_input_get = $("textarea#field").val();
-        $.ajax({
-            data: user_input_get,
-            type: 'POST',
-            url: 'get_input/',
-            success: function(response){
-                console.log(response);
-            }
-        });
-        return false;
-   });
-
-  $("#analyze-post").click(function(){
+  $("#submit_to_review").click(function(){
     /*$('#field').each(function(){
       $(this).attr('readonly','readonly');
     });*/
