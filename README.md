@@ -1,8 +1,8 @@
-Hashtags battle
+Social Advisor
 ===============
 This application is written in python3. Download app from github:
 
-`git clone https://github.com/Dambre/hashbattle.git`
+`git clone https://github.com/Dambre/social_advisor/
 
 Install requirements file:
 
