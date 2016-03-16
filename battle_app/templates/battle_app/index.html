@@ -110,7 +110,7 @@
     </section>
 
     <section class="container" id="analyzer-card-wrapper">
-      <form method="POST" id="review-post" action="/get_input/"> 
+      <form method="POST" id="review-post" action="/analyze/"> 
         {% csrf_token %}
         <div class="card card-styling social-media-post-analyze-wrapper">
           <textarea placeholder="Enter your text here to analyze it with our tool..." class="text-field" id="user_input_to_analyze" type="text" onkeyup="countChar(this)"></textarea>

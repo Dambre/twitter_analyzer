@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.all_battles, name='all_battles'),
+    url(r'^analyze/$', views.get_user_input, name='get_user_input'),
 ]
