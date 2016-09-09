@@ -23,13 +23,14 @@ def get_word_statistics(search_word):
     get tweets with this word
     '''
     try:
-        word = Word.objects.get(word=search_word)
+        word = search_word
         last_tweet_id = int(word.last_tweet_id)
         tweets = api.search(
             q=word.word,
             count=100,
             result_type='recent',
             since_id=last_tweet_id)
+    
     except Exception:
         tweets = []
 
@@ -43,6 +44,7 @@ def get_word_statistics(search_word):
                 word = Word.objects.get(word=tweet_word.lower())
             except Word.DoesNotExist:
                 word = Word.objects.create(word=tweet_word, last_tweet_id=tweet.id)
+            
             WordUsage.objects.create(
                 word=word,
                 retweets=tweet.retweet_count,

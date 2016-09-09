@@ -13,7 +13,7 @@ class Command(BaseCommand):
         words = Word.objects.all().order_by('updated_at')[:460]
         for word in words:
             print(word.word)
-            get_word_statistics(word.word)
+            get_word_statistics(word)
         return
 
 if __name__ == '__main__':

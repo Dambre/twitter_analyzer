@@ -1,38 +1,53 @@
-
-import nltk
-nltk.data.path.append('nltk_data')
-
 import requests
 
+import nltk; nltk.data.path.append('nltk_data')
+
 from .models import Word, Synonym, WordUsage
-
-default_types = ['$', "''", '(', ')', ',',
-    '--', '.', ':', 'CC', 'CD', 'DT', 'EX',
-    'FW', 'IN', 'JJ', 'JJR', 'JJS', 'LS',
-    'MD', 'PDT', 'POS', 'PRP', 'PRP$', 'SYM', 'TO']
-
-default_wordparts = ['http://', '//', 'https://', 'HTTP://', 'HTTPS://']
+from . import filters as flt
 
 
-def exclude_by_type(text, word_types=default_types, wordparts=default_wordparts):
+def exclude_by_type(
+    text, word_types=flt.TYPES,
+    wordparts=flt.EXCLUDE_WORDPARTS):
     """
     exclude items by type function
     """
-
-    if type(text).__name__ != 'list':
+    if type(text) is not list:
         text = nltk.word_tokenize(text)
+
     text = list(set(text))
-    text = nltk.pos_tag(text)
+    text = nltk.pos_tag(text)  # tag word with a type
+    
     cleaned_list = []
-    for item in text:
-        if item[1] not in word_types:
-            cleaned_list.append(item[0])
-    final_list = []
-    for word in cleaned_list:
+    for word, word_type in text:
+        skip_word = False
+        for lang in flt.AVAILABLE_LANGUAGES:
+            english_word = False
+            if lang.check(word):
+                english_word = True
+            
+            if not english_word:
+                skip_word = True
+                
+        if skip_word:
+            continue
+        
+        if word_type not in word_types:
+            skip_word = True
+        
+        if skip_word:
+            continue
+
         for part in wordparts:
-            if part not in word:
-                final_list.append(word)
-    return final_list
+            if part in word:
+                skip_word = True
+
+        if skip_word:
+            continue
+
+        cleaned_list.append(word)
+    return cleaned_list
+
 
 def create_synonyms(orig_word):
     '''
@@ -62,6 +77,7 @@ def create_synonyms(orig_word):
                 word = Word.objects.get(word=orig_word)
             except Word.DoesNotExist:
                 word = Word.objects.create(word=orig_word)
+            
             for syn in good_syns[:2]:
                 try:
                     new_word = Word.objects.create(word=syn.lower(), is_synonym=True)

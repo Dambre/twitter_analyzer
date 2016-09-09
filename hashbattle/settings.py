@@ -143,11 +143,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
 
-# Import development settings such as config, secrets etc.
-try:
-    from .local_settings import *
-except Exception:
-    pass
 
 # twitter keys
 
@@ -157,4 +152,10 @@ try:
     ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
     ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
 except KeyError:
+    pass
+
+# Import development settings such as config, secrets etc.
+try:
+    from .local_settings import *
+except Exception:
     pass
