@@ -16,6 +16,11 @@ def exclude_by_type(
         text = nltk.word_tokenize(text)
 
     text = list(set(text))
+    
+    for word in text:
+        if len(word)>1 and word.startswith('#'):
+            word = word[1:]
+
     text = nltk.pos_tag(text)  # tag word with a type
     
     cleaned_list = []
@@ -28,7 +33,7 @@ def exclude_by_type(
             
             if not english_word:
                 skip_word = True
-                
+
         if skip_word:
             continue
         
