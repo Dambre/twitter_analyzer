@@ -35,9 +35,11 @@ class Word(models.Model):
             self.last_tweet_id = str(tweet_id)
         self.save()
 
+
 class Synonym(models.Model):
     synonym_to = models.ManyToManyField(Word, related_name='synonym_to_word')
     word = models.ForeignKey(Word, null=True)
+
 
 class WordUsage(models.Model):
     word = models.ForeignKey(Word)

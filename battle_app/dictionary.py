@@ -1,5 +1,7 @@
 
 import nltk
+nltk.data.path.append('nltk_data')
+
 import requests
 
 from .models import Word, Synonym, WordUsage

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.conf import settings
-
-
-import tweepy
 import pytz
 from datetime import datetime
+
+from django.conf import settings
+
+import tweepy
+
 from .models import WordUsage, Word
 from .dictionary import exclude_by_type
 
