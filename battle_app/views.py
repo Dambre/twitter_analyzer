@@ -3,11 +3,10 @@ import json
 
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
 
-from .models import *
-from .dictionary import TextAnalysis
+from .analyzer import TextAnalysis
 
 
 def index(request):
@@ -18,6 +17,12 @@ def index(request):
 @csrf_exempt
 def get_user_input(request):
     user_input = request.POST.get("user_input", "")
-    analysis = TextAnalysis(user_input, 140)
+    analysis = TextAnalysis(user_input)
     analysis.run()
-    return HttpResponse(analysis.improved_text)
+    stats = {
+    	'original_text': user_input,
+    	'analyzed_text': analysis.improved_text,
+    	'is_changed': True if user_input != analysis.improved_text else False,
+    	'statistics': analysis.statistics
+    }
+    return JsonResponse(stats)

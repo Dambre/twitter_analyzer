@@ -10,12 +10,12 @@ from django.db import models
 class Word(models.Model):
     id = models.UUIDField(primary_key=True, 
         default=uuid.uuid4, editable=False)
-    word = models.CharField(max_length=140, unique=True)
-    total_number = models.IntegerField(default=0)
-    is_synonym = models.BooleanField(default=False)
-    is_hashtag = models.BooleanField(default=False)
-    last_tweet_id = models.CharField(max_length=50, default='0')
-    updated_at = models.DateTimeField(default=timezone.now)
+    word = models.CharField(max_length=140, unique=True, editable=False)
+    is_synonym = models.BooleanField(default=False, editable=False)
+    is_hashtag = models.BooleanField(default=False, editable=False)
+    last_tweet_id = models.CharField(max_length=50, default='0', editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
         ordering = ('-updated_at',)
@@ -27,7 +27,6 @@ class Word(models.Model):
         if self.word[0] == '#':
             self.is_hashtag = True
         self.word = self.word.lower()
-        self.updated_at = timezone.now()
         super(Word, self).save(*args, **kwargs)
     
     def update_latest_id(self, tweet_id):
