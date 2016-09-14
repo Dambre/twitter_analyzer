@@ -63,7 +63,7 @@ def create_synonyms(orig_word):
             "X-Mashape-Key": "aIder4iWr4msh5Scn073WRoddmAEp1qA0I3jsnSR8lfJwtyzpg",
             "Accept": "application/json"}
 
-        response = requests.get("https://wordsapiv1.p.mashape.com/words/%s/synonyms" % orig_word, headers=headers)
+        response = requests.get("https://wordsapiv1.p.mashape.com/words/{}/synonyms".format(orig_word), headers=headers)
         if response.status_code == 200:
             json = response.json()
             synonyms = json['synonyms']
@@ -78,11 +78,7 @@ def create_synonyms(orig_word):
                 if word[1] == syn[1]:
                     print('*')
                     good_syns.append(syn[0])
-            try:
-                word = Word.objects.get(word=orig_word)
-            except Word.DoesNotExist:
-                word = Word.objects.create(word=orig_word)
-            
+            word = Word.objects.get_or_create(word=orig_word)            
             for syn in good_syns[:2]:
                 try:
                     new_word = Word.objects.create(word=syn.lower(), is_synonym=True)

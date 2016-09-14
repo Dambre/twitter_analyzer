@@ -26,3 +26,8 @@ def get_user_input(request):
     	'statistics': analysis.statistics
     }
     return JsonResponse(stats)
+
+def get_word_statistics(request, word):
+	analysis = TextAnalysis(word)
+	analysis.run()
+	return JsonResponse(analysis.statistics)

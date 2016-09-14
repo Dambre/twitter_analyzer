@@ -1,3 +1,4 @@
+from django.db.models import Sum
 
 import nltk; nltk.data.path.append('nltk_data')
 
@@ -80,10 +81,8 @@ class TextAnalysis(object):
             count = usage.count()
             retweets = 0
             likes = 0
-            for use in usage:
-                retweets += use.retweets
-                likes += use.likes
-            
+            retweets = usage.aggregate(retweets=Sum('retweets')).get('retweets', 0)
+            likes = usage.aggregate(likes=Sum('likes')).get('likes', 0)
             likes_rate = likes/count
             retweets_rate = retweets/count
             rate = (likes_rate + retweets_rate)/2
